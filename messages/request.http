@@ -2,7 +2,7 @@
 GET http://localhost:3000/messages
 
 ### get by id
-GET http://localhost:3000/messages/67
+GET http://localhost:3000/messages/670
 
 ### create nmessage
 POST http://localhost:3000/messages/
