@@ -13,12 +13,11 @@ export class UsersService {
         return this.repo.save(user)
     }
 
-    async findOne(id: number){
-        const user = await this.repo.findOne({ where: {id} })
-        if (!user) {
-            throw new BadRequestException(`User ${id} not found`)
+    findOne(id: number){
+        if (!id) {
+            return null
         }
-        return user
+        return this.repo.findOne({ where: {id} })
     }
 
     find(email: string) {
@@ -27,6 +26,9 @@ export class UsersService {
 
     async update(id: number, attrs: Partial<User>){
         const user = await this.findOne(id)
+        if (!user) {
+            throw new BadRequestException(`User ${id} not found`)
+        }
 
         Object.assign(user, attrs)
         return this.repo.save(user)
@@ -34,6 +36,9 @@ export class UsersService {
 
     async remove(id: number) {
         const user = await this.findOne(id)
+        if (!user) {
+            throw new BadRequestException(`User ${id} not found`)
+        }
 
         return this.repo.remove(user)
     }
